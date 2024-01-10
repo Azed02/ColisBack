@@ -3,6 +3,7 @@ package com.example.colisexam.controller;
 
 import com.example.colisexam.entity.Colis;
 import com.example.colisexam.repository.ColisRepository;
+import com.example.colisexam.service.ColisService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,7 +16,8 @@ public class ColisController {
     @Autowired
     ColisRepository colisRepository;
 
-
+    @Autowired
+    ColisService colisService;
     @GetMapping("/")
     public List<Colis> getAllColis(){
         return this.colisRepository.findAll();
@@ -39,4 +41,9 @@ public class ColisController {
     }
 
 
+    @PostMapping("/{id_colis}/centre/{id_centre}")
+    public void assignColisToCentre(@PathVariable Long id_colis,@PathVariable int id_centre){
+        this.colisService.assignColisToCentre(id_colis,id_centre);
+
+    }
 }

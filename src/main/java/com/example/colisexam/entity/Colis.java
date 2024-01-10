@@ -26,6 +26,22 @@ public class Colis {
         return dateDepot;
     }
 
+    public Facteur getFacteur() {
+        return facteur;
+    }
+
+    public void setFacteur(Facteur facteur) {
+        this.facteur = facteur;
+    }
+
+    public List<CentrePostal> getCentrePostals() {
+        return centrePostals;
+    }
+
+    public void setCentrePostals(List<CentrePostal> centrePostals) {
+        this.centrePostals = centrePostals;
+    }
+
     public void setDateDepot(Date dateDepot) {
         this.dateDepot = dateDepot;
     }
@@ -82,6 +98,7 @@ public class Colis {
 
 
     @ManyToMany()
+    @JsonIgnore
     @JoinTable(
             name="Colis_Centres",
             joinColumns=

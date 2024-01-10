@@ -5,6 +5,7 @@ import com.example.colisexam.entity.Colis;
 import com.example.colisexam.entity.Habitant;
 import com.example.colisexam.repository.ColisRepository;
 import com.example.colisexam.repository.HabitantRepository;
+import com.example.colisexam.service.HabitantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,6 +17,9 @@ public class HabitantController {
 
     @Autowired
     HabitantRepository habitantRepository;
+
+    @Autowired
+    HabitantService habitantService;
 
 
     @GetMapping("/")
@@ -30,7 +34,7 @@ public class HabitantController {
                 .orElse(null);
     }
 
-    @PostMapping("")
+    @PostMapping()
     public void createHabitant(@RequestBody Habitant habitant){
         this.habitantRepository.save(habitant);
     }
@@ -38,6 +42,17 @@ public class HabitantController {
     @DeleteMapping("/{id}")
     public void deleteHabitant(@PathVariable Long id){
         this.habitantRepository.deleteById(id);
+    }
+
+    @PostMapping("/{id_emetteur}/colis/{id_colis}")
+    public void assignColisToEmet(@PathVariable Long id_colis ,@PathVariable Long id_emetteur){
+        this.habitantService.assignColisToEmetteur(id_colis,id_emetteur);
+    }
+
+
+    @PostMapping("/{id_recepteur}/col/{id_colis}")
+    public void assignColisToRecep(@PathVariable Long id_colis ,@PathVariable Long id_recepteur){
+        this.habitantService.assignColisToRecepteur(id_colis,id_recepteur);
     }
 
 }
